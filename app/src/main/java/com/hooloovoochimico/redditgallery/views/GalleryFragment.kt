@@ -1,6 +1,7 @@
 package com.hooloovoochimico.redditgallery.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -36,11 +37,13 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         })
 
         galleryViewModel.loading.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+           if(it) Log.d(javaClass.name, "loading")
         })
 
         galleryViewModel.error.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+           if(it) {
+               Log.d(javaClass.name, "error")
+           }
         })
 
         list.apply {

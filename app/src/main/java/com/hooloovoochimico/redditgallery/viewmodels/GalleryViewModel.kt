@@ -19,6 +19,8 @@ class GalleryViewModel : ViewModel() {
 
         loading.value = true
 
+        error.value = false
+
         disposable = imagesRepo.getImages(searchString).subscribe { imagesList, exception ->
 
             loading.value = false
