@@ -3,9 +3,14 @@ package com.hooloovoochimico.redditgallery.views
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,28 +29,56 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         super.onViewCreated(view, savedInstanceState)
 
 
+        configureSearch()
 
         galleryViewModel.images.observe(viewLifecycleOwner, Observer { list ->
             gridAdapter.updateImages(list)
         })
 
         galleryViewModel.loading.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
         })
 
         galleryViewModel.error.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(),"error",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
         })
 
-        button.setOnClickListener {
-            galleryViewModel.search("soccer")
-        }
-
         list.apply {
-            layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
+            layoutManager =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             adapter = gridAdapter
         }
     }
 
+    private fun configureSearch() {
+        val searchItem: MenuItem? = toolabr.menu.findItem(R.id.action_search)
+        if (searchItem != null) {
+            val searchView = searchItem.actionView as SearchView
+            searchView.setOnCloseListener { true }
+
+            val searchEditText =
+                searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
+            searchEditText.hint = "Eg sunset"
+            val searchPlateView: View =
+                searchView.findViewById(androidx.appcompat.R.id.search_plate)
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+
+                    if (newText?.isNotBlank() == true || newText?.isNotEmpty() == true){
+                        galleryViewModel.search(newText)
+                    }
+
+                    return true
+                }
+
+            })
+        }
+
+    }
 
 }
