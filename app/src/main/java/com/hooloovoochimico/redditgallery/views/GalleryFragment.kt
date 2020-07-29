@@ -19,11 +19,22 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         super.onViewCreated(view, savedInstanceState)
 
         galleryViewModel.images.observe(viewLifecycleOwner, Observer {
-
             text.text = it.foldRight("") {acc, item ->
                 "$acc $item"
             }
         })
+
+        galleryViewModel.loading.observe(viewLifecycleOwner, Observer {
+            if(it) text.text = "Loading..."
+        })
+
+        galleryViewModel.error.observe(viewLifecycleOwner, Observer {
+            if(it) text.text = "Error!"
+        })
+
+        button.setOnClickListener {
+            galleryViewModel.search("soccer")
+        }
     }
 
 
