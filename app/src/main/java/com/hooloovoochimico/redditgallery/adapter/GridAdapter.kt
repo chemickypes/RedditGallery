@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.hooloovoochimico.redditgallery.R
+import com.hooloovoochimico.redditgallery.androidviews.SquareImageView
+import com.hooloovoochimico.redditgallery.androidviews.load
 import com.hooloovoochimico.redditgallery.models.UnsplashImageBeanItem
+import com.squareup.picasso.Picasso
 
 class GridAdapter : RecyclerView.Adapter<GridAdapter.ItemViewHolder>() {
 
@@ -29,14 +32,16 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.ItemViewHolder>() {
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private var imageview: ImageView? = null
+        private var imageview: SquareImageView? = null
         init {
             imageview = itemView.findViewById(R.id.imageView)
         }
 
         fun bind(item: UnsplashImageBeanItem){
-            //Devo mettere le immagini
+            imageview?.load(item.urls?.regular?:"")
+
         }
     }
 
 }
+
