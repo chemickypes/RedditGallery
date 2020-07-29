@@ -2,14 +2,16 @@ package com.hooloovoochimico.redditgallery.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hooloovoochimico.redditgallery.models.UnsplashImageBeanItem
 import com.hooloovoochimico.redditgallery.provider.ImageProvider
+import io.reactivex.disposables.Disposable
 
 class GalleryViewModel : ViewModel() {
 
-    val imagesRepo = ImageProvider()
+    private var disposable: Disposable? = null
+    private val imagesRepo = ImageProvider()
 
-
-    val images = MutableLiveData<List<String>>()
+    val images = MutableLiveData<List<UnsplashImageBeanItem>>()
     val error = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
@@ -17,18 +19,28 @@ class GalleryViewModel : ViewModel() {
 
         loading.value = true
 
-        imagesRepo.getImages(searchString).subscribe { imagesList, exception ->
+        disposable = imagesRepo.getImages(searchString).subscribe { imagesList, exception ->
 
             loading.value = false
 
             if (imagesList != null) {
                 error.value = false
-                images.value = imagesList.results.map { it.urls?.regular ?: "" }
+                images.value = imagesList.results
             } else {
                 exception.printStackTrace()
                 error.value = true
             }
         }
 
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        try {
+            disposable?.dispose()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 }
