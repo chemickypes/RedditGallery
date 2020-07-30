@@ -72,8 +72,6 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
             val searchEditText =
                 searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
             searchEditText.hint = "Eg sunset"
-            val searchPlateView: View =
-                searchView.findViewById(androidx.appcompat.R.id.search_plate)
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
