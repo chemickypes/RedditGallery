@@ -9,5 +9,14 @@
         android:id="@+id/galleryFragment"
         android:name="com.hooloovoochimico.redditgallery.views.GalleryFragment"
         android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_viewPhotoFragment"
+            app:destination="@id/viewPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPhotoFragment"
+        android:name="com.hooloovoochimico.redditgallery.views.ViewPhotoFragment"
+        android:label="fragment_view_photo"
+        tools:layout="@layout/fragment_view_photo" />
 </navigation>
