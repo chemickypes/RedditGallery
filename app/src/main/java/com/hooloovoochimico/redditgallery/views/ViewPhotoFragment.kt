@@ -54,6 +54,10 @@ class ViewPhotoFragment : Fragment(R.layout.fragment_view_photo) {
         galleryViewModel.images.observe(viewLifecycleOwner, Observer { list ->
             galleryPageAdapter.addItems(list)
         })
+
+        galleryViewModel.imageSaved.observe(viewLifecycleOwner, Observer { result ->
+            Toast.makeText(requireContext(),result, Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun onResume() {
@@ -76,7 +80,7 @@ class ViewPhotoFragment : Fragment(R.layout.fragment_view_photo) {
                 }
 
                 override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                    galleryViewModel.savePic(bitmap, name)
+                    galleryViewModel.savePic(requireContext(), bitmap, name)
                 }
 
             })
