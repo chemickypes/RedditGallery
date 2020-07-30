@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hooloovoochimico.redditgallery.R
 import com.hooloovoochimico.redditgallery.adapter.GridAdapter
@@ -22,7 +23,12 @@ import java.util.concurrent.TimeUnit
 class GalleryFragment : Fragment(R.layout.fragment_gallery) {
     private val galleryViewModel: GalleryViewModel by viewModels()
 
-    private val gridAdapter = GridAdapter()
+    private val gridAdapter = GridAdapter { item, position ->
+        findNavController().navigate(
+            R.id.action_galleryFragment_to_viewPhotoFragment
+        )
+
+    }
 
     private val searchSubject = PublishSubject.create<String>()
 
