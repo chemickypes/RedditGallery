@@ -15,11 +15,15 @@ interface UnsplashRepo {
     fun getImages(@Query("client_id") clientId: String, @Query("query") query: String, @Query("per_page") perPage: Int = 20): Single<UnsplashImageBean>
 }
 
-class ImageProvider {
+
+//lo faccio object perché avrei avuto bisogno di Koin o Dagger, am mi sembrava come schiacciare la mosca con il martello
+object ImageProvider {
 
     private val BASE_URL = "https://api.unsplash.com"
 
     private val clientId = "e2658d4b6b17ae24b50a7ab36d13ca67da9761322a5e4cb0e9cc531e69cecb90"
+
+    private var cachedImages: UnsplashImageBean? = null
 
 
     private val retrofit =
@@ -33,7 +37,15 @@ class ImageProvider {
 
     fun getImages(query: String = "soccer"): Single<UnsplashImageBean> {
         return unsplashRepo.getImages(clientId = clientId,query = query)
+            .map {
+                cachedImages = it
+                it
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getCachedImages(): UnsplashImageBean? {
+        return cachedImages
     }
 }

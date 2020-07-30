@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable
 class GalleryViewModel : ViewModel() {
 
     private var disposable: Disposable? = null
-    private val imagesRepo = ImageProvider()
+    private val imagesRepo = ImageProvider
 
     val images = MutableLiveData<List<UnsplashImageBeanItem>>()
     val error = MutableLiveData<Boolean>()
