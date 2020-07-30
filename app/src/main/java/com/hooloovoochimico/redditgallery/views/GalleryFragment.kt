@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -44,7 +45,11 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         })
 
         galleryViewModel.loading.observe(viewLifecycleOwner, Observer {
-            if (it) Log.d(javaClass.name, "loading")
+            if (it) {
+                loadingView.isVisible = true
+            }else {
+                loadingView.isVisible = false
+            }
         })
 
         galleryViewModel.error.observe(viewLifecycleOwner, Observer {
