@@ -1,5 +1,6 @@
 package com.hooloovoochimico.redditgallery.viewmodels
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hooloovoochimico.redditgallery.models.UnsplashImageBeanItem
@@ -11,5 +12,9 @@ class GalleryViewPhotoModel  : ViewModel() {
 
     fun getImages() {
         images.value = imagesRepo.getCachedImages()?.results ?: emptyList()
+    }
+
+    fun savePic(bitmap: Bitmap?, name: String?) {
+        TODO("Not yet implemented")
     }
 }

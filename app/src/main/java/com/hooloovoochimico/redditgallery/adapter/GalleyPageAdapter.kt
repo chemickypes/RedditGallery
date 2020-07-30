@@ -3,6 +3,7 @@ package com.hooloovoochimico.redditgallery.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
@@ -11,7 +12,7 @@ import com.hooloovoochimico.redditgallery.androidviews.load
 import com.hooloovoochimico.redditgallery.models.UnsplashImageBeanItem
 
 
-class GalleyPageAdapter : PagerAdapter() {
+class GalleyPageAdapter(val onTapOnSaveAction: (String?,String?) -> Unit) : PagerAdapter() {
 
     private val items = mutableListOf<UnsplashImageBeanItem>()
 
@@ -31,11 +32,16 @@ class GalleyPageAdapter : PagerAdapter() {
         val imageView: ImageView? = view?.findViewById(R.id.imageView2)
         val user: TextView? = view?.findViewById(R.id.user)
         val desc: TextView? = view?.findViewById(R.id.desc)
+        val save : Button? = view?.findViewById(R.id.save)
 
         imageView?.load(item.urls?.regular ?: "")
 
         user?.text = item.user?.username
         desc?.text = item.altDescription
+
+        save?.setOnClickListener {
+            onTapOnSaveAction(item.urls?.regular, item.id)
+        }
 
         container.addView(view)
         return view!!
