@@ -45,17 +45,14 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
         })
 
         galleryViewModel.loading.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                loadingView.isVisible = true
-            }else {
-                loadingView.isVisible = false
+            loadingView.isVisible = it
+            if (it){
+                errorText.isVisible = false
             }
         })
 
         galleryViewModel.error.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                Log.d(javaClass.name, "error")
-            }
+            errorText.isVisible = it
         })
 
         list.apply {
