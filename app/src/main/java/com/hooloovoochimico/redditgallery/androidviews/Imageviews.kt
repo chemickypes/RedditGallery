@@ -2,6 +2,7 @@ package com.hooloovoochimico.redditgallery.androidviews
 
 import android.content.Context
 import android.util.AttributeSet
+import android.widget.ImageView
 import com.squareup.picasso.Picasso
 
 
@@ -24,6 +25,13 @@ class SquareImageView : androidx.appcompat.widget.AppCompatImageView {
 }
 
 fun androidx.appcompat.widget.AppCompatImageView.load(url:String) {
+    Picasso.get()
+        .load(url)
+        .error(android.R.drawable.btn_star)
+        .into(this)
+}
+
+fun ImageView.load(url:String) {
     Picasso.get()
         .load(url)
         .error(android.R.drawable.btn_star)
