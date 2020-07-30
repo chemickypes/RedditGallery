@@ -3,13 +3,13 @@ package com.hooloovoochimico.redditgallery.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hooloovoochimico.redditgallery.models.ImageBean
-import com.hooloovoochimico.redditgallery.provider.ImageProvider
+import com.hooloovoochimico.redditgallery.provider.UnsplashImageProvider
 import io.reactivex.disposables.Disposable
 
 class GalleryViewModel : ViewModel() {
 
     private var disposable: Disposable? = null
-    private val imagesRepo = ImageProvider
+    private val imagesRepo = UnsplashImageProvider
 
     val images = MutableLiveData<List<ImageBean>>()
     val error = MutableLiveData<Boolean>()

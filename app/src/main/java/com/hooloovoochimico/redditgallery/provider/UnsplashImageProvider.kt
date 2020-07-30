@@ -19,7 +19,7 @@ interface UnsplashRepo {
 
 
 //lo faccio object perché avrei avuto bisogno di Koin o Dagger, am mi sembrava come schiacciare la mosca con il martello
-object ImageProvider {
+object UnsplashImageProvider {
 
     private val BASE_URL = "https://api.unsplash.com"
 

@@ -251,7 +251,7 @@ data class DataRedditBean(
     @SerializedName("before")
     val before: Any?,
     @SerializedName("children")
-    val children: List<Any>?,
+    val children: List<RedditPost>?,
     @SerializedName("dist")
     val dist: Int?,
     @SerializedName("modhash")
