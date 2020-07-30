@@ -58,10 +58,7 @@ class ViewPhotoFragment : Fragment(R.layout.fragment_view_photo) {
         galleryViewModel.imageSaved.observe(viewLifecycleOwner, Observer { result ->
             Toast.makeText(requireContext(),result, Toast.LENGTH_SHORT).show()
         })
-    }
 
-    override fun onResume() {
-        super.onResume()
         galleryViewModel.getImages()
 
         viewPager.setCurrentItem(index, false)
