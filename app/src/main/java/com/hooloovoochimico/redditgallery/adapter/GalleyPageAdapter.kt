@@ -9,12 +9,13 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.hooloovoochimico.redditgallery.R
 import com.hooloovoochimico.redditgallery.androidviews.load
+import com.hooloovoochimico.redditgallery.models.ImageBean
 import com.hooloovoochimico.redditgallery.models.UnsplashImageBeanItem
 
 
 class GalleyPageAdapter(val onTapOnSaveAction: (String?,String?) -> Unit) : PagerAdapter() {
 
-    private val items = mutableListOf<UnsplashImageBeanItem>()
+    private val items = mutableListOf<ImageBean>()
 
     private var layoutInflater: LayoutInflater? = null
 
@@ -34,13 +35,13 @@ class GalleyPageAdapter(val onTapOnSaveAction: (String?,String?) -> Unit) : Page
         val desc: TextView? = view?.findViewById(R.id.desc)
         val save : Button? = view?.findViewById(R.id.save)
 
-        imageView?.load(item.urls?.regular ?: "")
+        imageView?.load(item.url ?: "")
 
-        user?.text = item.user?.username
-        desc?.text = item.altDescription
+        user?.text = item.title
+        desc?.text = item.description
 
         save?.setOnClickListener {
-            onTapOnSaveAction(item.urls?.regular, item.id)
+            onTapOnSaveAction(item.url, item.id)
         }
 
         container.addView(view)
@@ -51,7 +52,7 @@ class GalleyPageAdapter(val onTapOnSaveAction: (String?,String?) -> Unit) : Page
         container.removeView(`object` as View)
     }
 
-    fun addItems(itemsToAdd: List<UnsplashImageBeanItem>){
+    fun addItems(itemsToAdd: List<ImageBean>){
         items.addAll(itemsToAdd)
         notifyDataSetChanged()
     }

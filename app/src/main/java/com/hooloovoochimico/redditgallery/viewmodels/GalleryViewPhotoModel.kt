@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.hooloovoochimico.redditgallery.models.ImageBean
 import com.hooloovoochimico.redditgallery.models.UnsplashImageBeanItem
 import com.hooloovoochimico.redditgallery.provider.ImageProvider
 import com.hooloovoochimico.redditgallery.storage.ImageSaver
@@ -11,12 +12,12 @@ import com.hooloovoochimico.redditgallery.storage.ImageSaver
 class GalleryViewPhotoModel  : ViewModel() {
     
     private val imagesRepo = ImageProvider
-    val images = MutableLiveData<List<UnsplashImageBeanItem>>()
+    val images = MutableLiveData<List<ImageBean>>()
 
     val imageSaved = MutableLiveData<String>()
 
     fun getImages() {
-        images.value = imagesRepo.getCachedImages()?.results ?: emptyList()
+        images.value = imagesRepo.getCachedImages() ?: emptyList()
     }
 
     fun savePic(context: Context, bitmap: Bitmap?, name: String?) {

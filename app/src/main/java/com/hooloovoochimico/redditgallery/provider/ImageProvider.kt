@@ -1,5 +1,7 @@
 package com.hooloovoochimico.redditgallery.provider
 
+import android.media.Image
+import com.hooloovoochimico.redditgallery.models.ImageBean
 import com.hooloovoochimico.redditgallery.models.UnsplashImageBean
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,8 +25,8 @@ object ImageProvider {
 
     private val clientId = "e2658d4b6b17ae24b50a7ab36d13ca67da9761322a5e4cb0e9cc531e69cecb90"
 
-    private var cachedImages: UnsplashImageBean? = null
 
+    private var cachedList: List<ImageBean>? = null
 
     private val retrofit =
         Retrofit.Builder()
@@ -35,17 +37,25 @@ object ImageProvider {
 
     private val unsplashRepo = retrofit.create(UnsplashRepo::class.java)
 
-    fun getImages(query: String = "soccer"): Single<UnsplashImageBean> {
+    fun getImages(query: String = "soccer"): Single<List<ImageBean>> {
         return unsplashRepo.getImages(clientId = clientId,query = query)
             .map {
-                cachedImages = it
-                it
+                cachedList = it.results.map { item ->
+                    ImageBean(
+                        url = item.urls?.regular,
+                        title = item.user?.username,
+                        description = item.description,
+                        id = item.id
+                    )
+                }
+
+                cachedList!!
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getCachedImages(): UnsplashImageBean? {
-        return cachedImages
+    fun getCachedImages(): List<ImageBean>? {
+        return cachedList
     }
 }
