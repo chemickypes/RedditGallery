@@ -44,4 +44,9 @@ class GalleyPageAdapter : PagerAdapter() {
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         super.destroyItem(container, position, `object`)
     }
+
+    fun addItems(itemsToAdd: List<UnsplashImageBeanItem>){
+        items.addAll(itemsToAdd)
+        notifyDataSetChanged()
+    }
 }
