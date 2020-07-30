@@ -18,5 +18,11 @@
         android:id="@+id/viewPhotoFragment"
         android:name="com.hooloovoochimico.redditgallery.views.ViewPhotoFragment"
         android:label="fragment_view_photo"
-        tools:layout="@layout/fragment_view_photo" />
+        tools:layout="@layout/fragment_view_photo" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+    </fragment>
 </navigation>

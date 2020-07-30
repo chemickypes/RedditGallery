@@ -16,10 +16,14 @@ class ViewPhotoFragment : Fragment(R.layout.fragment_view_photo) {
     private val galleryPageAdapter: GalleyPageAdapter = GalleyPageAdapter()
     private val galleryViewModel: GalleryViewPhotoModel by viewModels()
 
+    private var index = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewPager?.adapter = galleryPageAdapter
+
+        index = arguments?.getInt("position")?:0
 
         galleryViewModel.images.observe(viewLifecycleOwner, Observer { list ->
            galleryPageAdapter.addItems(list)
@@ -29,6 +33,8 @@ class ViewPhotoFragment : Fragment(R.layout.fragment_view_photo) {
     override fun onResume() {
         super.onResume()
         galleryViewModel.getImages()
+
+        viewPager.setCurrentItem(index,false)
     }
 
 

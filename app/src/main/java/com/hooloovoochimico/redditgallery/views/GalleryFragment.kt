@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,9 +24,9 @@ import java.util.concurrent.TimeUnit
 class GalleryFragment : Fragment(R.layout.fragment_gallery) {
     private val galleryViewModel: GalleryViewModel by viewModels()
 
-    private val gridAdapter = GridAdapter { item, position ->
+    private val gridAdapter = GridAdapter { _, position ->
         findNavController().navigate(
-            R.id.action_galleryFragment_to_viewPhotoFragment
+            R.id.action_galleryFragment_to_viewPhotoFragment, bundleOf("position" to position)
         )
 
     }
