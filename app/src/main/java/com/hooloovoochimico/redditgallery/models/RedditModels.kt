@@ -33,12 +33,6 @@ data class RedditBean(
     val message: String?,
     @SerializedName("error")
     val error: Int?
-
-/*
-reason: "private",
-message: "Forbidden",
-error: 403
- */
 )
 
 data class DataRedditBean(
@@ -52,16 +46,4 @@ data class DataRedditBean(
     val dist: Int?,
     @SerializedName("modhash")
     val modhash: String?
-)
-
-class Gildings(
-)
-
-class MediaEmbed(
-)
-
-class Preview(
-)
-
-class SecureMediaEmbed(
 )
