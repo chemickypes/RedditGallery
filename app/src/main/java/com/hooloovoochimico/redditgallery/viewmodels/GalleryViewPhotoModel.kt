@@ -5,12 +5,13 @@ import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hooloovoochimico.redditgallery.models.ImageBean
+import com.hooloovoochimico.redditgallery.provider.RedditImageProvider
 import com.hooloovoochimico.redditgallery.provider.UnsplashImageProvider
 import com.hooloovoochimico.redditgallery.storage.ImageSaver
 
 class GalleryViewPhotoModel  : ViewModel() {
     
-    private val imagesRepo = UnsplashImageProvider
+    private val imagesRepo = RedditImageProvider
     val images = MutableLiveData<List<ImageBean>>()
 
     val imageSaved = MutableLiveData<String>()
