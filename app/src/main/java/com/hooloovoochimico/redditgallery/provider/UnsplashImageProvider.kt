@@ -23,7 +23,7 @@ object UnsplashImageProvider {
 
     private val BASE_URL = "https://api.unsplash.com"
 
-    private val clientId = "e2658d4b6b17ae24b50a7ab36d13ca67da9761322a5e4cb0e9cc531e69cecb90"
+    private val clientId = ""
 
 
     private var cachedList: List<ImageBean>? = null
